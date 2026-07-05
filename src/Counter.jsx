@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState } from "react";
+import { Button } from "./components/Button/Button";
 
 // export const Counter = () => {
 //     let count = 1
@@ -10,13 +11,20 @@ import { useState } from "react"
 // }
 
 export const Counter = () => {
-    const [count, setCount] = useState(0)
+    const [count, setCount] = useState(0);
 
-    console.log("Рендер компонента")
+    console.log("Рендер компонента");
+
+    const setCounterHandler = () => {
+        // setCount(count + 1)
+        setCount((prev) => prev + 1);
+        setCount((prev) => prev + 1);
+        setCount((prev) => prev + 1);
+    };
 
     return (
-        <button type="button" onClick={() => setCount(count + 1)}>
-            Count is {count}
-        </button>
-    )
-}
+        <Button type="button" onClick={setCounterHandler}>
+            Count is {count} 3-кнопка
+        </Button>
+    );
+};

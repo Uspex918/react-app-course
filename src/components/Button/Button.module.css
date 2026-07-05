@@ -1,11 +1,11 @@
 * {
 }
 .btn {
-    background-color: burlywood;
+  background-color: burlywood;
 }
 
 .primary {
-    background-color: cadetblue;
-    min-width: 250px;
-    min-height: 50px;
+  background-color: cadetblue;
+  min-width: 250px;
+  min-height: 50px;
 }
