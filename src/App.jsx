@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { MainLayout } from "./components/MainLayout";
+import { HomePage } from "./pages/HomePage";
 // "printWidth": 120
 
 function App() {
@@ -7,7 +8,7 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route element={<MainLayout />}>
-                    <Route path="/" element={<div>home page</div>} />
+                    <Route path="/" element={<HomePage />} />
                     <Route path="/forbidden" element={<div>gorbidden component</div>} />
                     <Route path="/addquestion" element={<div>add question component</div>} />
                 </Route>
