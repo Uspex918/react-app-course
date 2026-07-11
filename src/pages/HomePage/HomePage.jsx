@@ -1,7 +1,7 @@
 // import cls from "./HomePage.module.css";
-import { QuestionCard } from "../../components/QuestionCard/QuestionCard";
 import { Fragment, useState, useEffect } from "react";
 import { API_URL } from "../../constants";
+import { QuestionCardList } from "../../components/QuestionCardList";
 
 export const HomePage = () => {
     const [questions, setQuestions] = useState([]);
@@ -25,9 +25,7 @@ export const HomePage = () => {
 
     return (
         <Fragment>
-            {questions.map((card, index) => {
-                return <QuestionCard card={card} key={index} />;
-            })}
+            <QuestionCardList cards={questions} />
         </Fragment>
     );
 };
