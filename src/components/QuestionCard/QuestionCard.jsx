@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../Button";
 import cls from "./QuestionCard.module.css";
 
-export const QuestionCard = ({ card, key }) => {
+export const QuestionCard = ({ card }) => {
     const navigate = useNavigate();
 
     return (
