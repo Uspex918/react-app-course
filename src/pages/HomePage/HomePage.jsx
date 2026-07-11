@@ -2,6 +2,7 @@
 import { Fragment, useState, useEffect } from "react";
 import { API_URL } from "../../constants";
 import { QuestionCardList } from "../../components/QuestionCardList";
+import { Loader } from "../../components/Loader";
 
 export const HomePage = () => {
     const [questions, setQuestions] = useState([]);
@@ -25,6 +26,7 @@ export const HomePage = () => {
 
     return (
         <Fragment>
+            <Loader />
             <QuestionCardList cards={questions} />
         </Fragment>
     );
