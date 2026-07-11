@@ -1,5 +1,5 @@
 // import cls from "./HomePage.module.css";
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState, useEffect, useRef } from "react";
 import { API_URL } from "../../constants";
 import { QuestionCardList } from "../../components/QuestionCardList";
 import { Loader } from "../../components/Loader";
@@ -7,6 +7,9 @@ import { useFetch } from "../../hooks/useFetch";
 
 export const HomePage = () => {
     const [questions, setQuestions] = useState([]);
+    const [searchValue, setSearchValue] = useState([]);
+
+    // const inputRef = useRef();
 
     const [getQuestions, isLoading, error] = useFetch(async (url) => {
         const response = await fetch(`${API_URL}/${url}`);
@@ -45,8 +48,20 @@ export const HomePage = () => {
         getQuestions("react");
     }, []);
 
+    // const testRefHandler = () => {
+    //     console.dir(inputRef.current.value);
+    // };
+
+    const onSearchChangeHandler = (e) => {
+        // console.log(e.target.value);
+        setSearchValue(e.target.value);
+    };
+
     return (
         <Fragment>
+            <input type="text" value={searchValue} onChange={onSearchChangeHandler} />
+            {/* <button onClick={testRefHandler}>test ref</button> */}
+
             {isLoading && <Loader />}
             {error && <p>{error}</p>}
             <QuestionCardList cards={questions} />
