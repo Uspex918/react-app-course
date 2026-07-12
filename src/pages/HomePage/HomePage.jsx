@@ -1,9 +1,10 @@
-// import cls from "./HomePage.module.css";
+import cls from "./HomePage.module.css";
 import { Fragment, useState, useEffect, useRef } from "react";
 import { API_URL } from "../../constants";
 import { QuestionCardList } from "../../components/QuestionCardList";
 import { Loader } from "../../components/Loader";
 import { useFetch } from "../../hooks/useFetch";
+import { SearchInput } from "../../components/SearchInput";
 
 export const HomePage = () => {
     const [questions, setQuestions] = useState([]);
@@ -53,13 +54,16 @@ export const HomePage = () => {
     // };
 
     const onSearchChangeHandler = (e) => {
-        // console.log(e.target.value);
+        console.log(e.target.value);
         setSearchValue(e.target.value);
     };
 
     return (
         <Fragment>
-            <input type="text" value={searchValue} onChange={onSearchChangeHandler} />
+            <div className={cls.controlsContainer}>
+                <SearchInput value={searchValue} onChange={onSearchChangeHandler} />
+                {/* <input type="text" value={searchValue} onChange={onSearchChangeHandler} /> */}
+            </div>
             {/* <button onClick={testRefHandler}>test ref</button> */}
 
             {isLoading && <Loader />}
