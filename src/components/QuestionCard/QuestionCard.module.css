@@ -11,6 +11,11 @@
     justify-content: flex-start;
     align-items: flex-start;
     gap: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.card:hover {
+    background-color: var(--card-bg-color-hover);
 }
 
 .card button {

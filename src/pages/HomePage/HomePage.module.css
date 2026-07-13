@@ -7,4 +7,24 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+
+    @media (max-width: 576px) {
+        flex-wrap: wrap-reverse;
+    }
+}
+
+.noCardsInfo {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.select {
+    height: 40px;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+    flex-grow: 1;
 }
