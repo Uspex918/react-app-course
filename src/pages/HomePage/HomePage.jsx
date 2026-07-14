@@ -1,15 +1,23 @@
 import cls from "./HomePage.module.css";
-import { Fragment, useState, useEffect, useMemo } from "react";
+import { Fragment, useState, useEffect, useMemo, useRef } from "react";
 import { API_URL } from "../../constants";
 import { QuestionCardList } from "../../components/QuestionCardList";
 import { Loader } from "../../components/Loader";
 import { useFetch } from "../../hooks/useFetch";
 import { SearchInput } from "../../components/SearchInput";
+import { Button } from "../../components/Button";
+
+const DEFAULT_PER_PAGE = 10;
 
 export const HomePage = () => {
-    const [questions, setQuestions] = useState([]);
+    const [searchParams, setSearchParams] = useState(`?_page=1&_per_page=${DEFAULT_PER_PAGE}`);
+    const [questions, setQuestions] = useState({});
     const [searchValue, setSearchValue] = useState("");
     const [sortSelectValue, setSortSelectValue] = useState("");
+
+    const controlsContainerRef = useRef();
+
+    const getActivePageNumber = () => (questions.next === null ? questions.last : questions.next - 1);
 
     // const inputRef = useRef();
 
@@ -17,13 +25,13 @@ export const HomePage = () => {
         const response = await fetch(`${API_URL}/${url}`);
         const fetchedQuestions = await response.json();
 
-        if (!response.ok) {
-            throw new Error(fetchedQuestions?.message || `Ошибка ${response.status}`);
-        }
+        // if (!response.ok) {
+        //     throw new Error(fetchedQuestions?.message || `Ошибка ${response.status}`);
+        // }
 
-        if (!Array.isArray(fetchedQuestions)) {
-            throw new Error("Неверный формат ответа API");
-        }
+        // if (!Array.isArray(fetchedQuestions)) {
+        //     throw new Error("Неверный формат ответа API");
+        // }
 
         setQuestions(fetchedQuestions);
         return fetchedQuestions;
@@ -48,15 +56,36 @@ export const HomePage = () => {
     // };
     // console.log(searchValue);
     // console.log(typeof searchValue);
+
     const cards = useMemo(() => {
-        return questions.filter((d) => d.question.toLowerCase().includes(searchValue.trim().toLowerCase()));
+        if (questions?.data) {
+            if (searchValue.trim()) {
+                return questions.data.filter((d) =>
+                    d.question.toLowerCase().includes(searchValue.trim().toLowerCase()),
+                );
+            } else {
+                return questions.data;
+            }
+        }
+
+        return [];
     }, [questions, searchValue]);
 
     // console.log(cards);
 
+    const pagination = useMemo(() => {
+        const totalCardsCount = questions?.pages || 0;
+
+        return Array(totalCardsCount)
+            .fill(0)
+            .map((_, i) => i + 1);
+    }, [questions]);
+
     useEffect(() => {
-        getQuestions(`react?${sortSelectValue}`);
-    }, [sortSelectValue]);
+        // getQuestions(`react?${sortSelectValue}`);
+        // getQuestions(`react?_page=1&_per_page=${DEFAULT_PER_PAGE}`);
+        getQuestions(`react${searchParams}${sortSelectValue ? `&${sortSelectValue}` : ""}`);
+    }, [searchParams, sortSelectValue]);
 
     // const testRefHandler = () => {
     //     console.dir(inputRef.current.value);
@@ -70,11 +99,20 @@ export const HomePage = () => {
     const onSortSelectChangeValue = (e) => {
         console.log(e.target.value);
         setSortSelectValue(e.target.value);
+        setSearchParams(`?_page=1&_per_page=${DEFAULT_PER_PAGE}&${e.target.value}`);
+    };
+
+    const paginationHandler = (e) => {
+        console.log(e.target.tagName);
+        if (e.target.tagName === "BUTTON") {
+            setSearchParams(`?_page=${e.target.textContent}&_per_page=${DEFAULT_PER_PAGE}&${sortSelectValue}`);
+            controlsContainerRef.current.scrollIntoView({ behavior: "smooth" });
+        }
     };
 
     return (
         <Fragment>
-            <div className={cls.controlsContainer}>
+            <div className={cls.controlsContainer} ref={controlsContainerRef}>
                 <SearchInput value={searchValue} onChange={onSearchChangeHandler} />
                 {/* <input type="text" value={searchValue} onChange={onSearchChangeHandler} /> */}
                 <select value={sortSelectValue} onChange={onSortSelectChangeValue} className={cls.select}>
@@ -89,9 +127,22 @@ export const HomePage = () => {
             {/* <button onClick={testRefHandler}>test ref</button> */}
             {isLoading && <Loader />}
             {error && <p>{error}</p>}
-            {cards.length === 0 && <p className={cls.noCardsInfo}>No cards...</p>}
 
             <QuestionCardList cards={cards} />
+
+            {cards.length === 0 ? (
+                <p className={cls.noCardsInfo}>No cards...</p>
+            ) : (
+                <div className={cls.paginationContainer} onClick={paginationHandler}>
+                    {pagination.map((value) => {
+                        return (
+                            <Button key={value} isActive={value === getActivePageNumber()}>
+                                {value}
+                            </Button>
+                        );
+                    })}
+                </div>
+            )}
         </Fragment>
     );
 };
