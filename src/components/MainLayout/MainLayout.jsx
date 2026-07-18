@@ -10,7 +10,7 @@ export const MainLayout = () => {
         <div className={cls.mainLayout}>
             <Header />
             <div className={cls.mainWrapper}>
-                <main className={cls.main}>main</main>
+                {/* <main className={cls.main}>main</main> */}
                 <Outlet />
                 <footer className={cls.footer}>
                     React Question Cards Application | {currentMonth}/{currentYear} <br />

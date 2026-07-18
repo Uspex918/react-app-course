@@ -54,7 +54,8 @@ body {
         --main-bg-color: #23272f;
         --text-color: #fff;
 
-        --btn-bg-color: #383b3f;
+        /* --btn-bg-color: #383b3f; */
+        --btn-bg-color: #16444f;
         --btn-text-color: #fff;
 
         --card-bg-color: #343a46;
