@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { delayFn } from "../helpers/delayFn";
+// import { toast } from "react-toastify";
 
 export const useFetch = (callback) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -13,6 +14,7 @@ export const useFetch = (callback) => {
             await delayFn(350);
 
             const response = await callback(arg);
+            // toast("OK");
             return response;
             // const fetchedQuestions = await response.json();
 
