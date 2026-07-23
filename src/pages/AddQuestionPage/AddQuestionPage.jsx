@@ -1,4 +1,4 @@
-import { toast } from "react-toastify/unstyled";
+import { toast } from "react-toastify";
 import { Button } from "../../components/Button";
 import { delayFn } from "../../helpers/delayFn";
 import cls from "./AddQuestionPage.module.css";
@@ -28,12 +28,17 @@ const createCardAction = async (_previousState, formData) => {
             }),
         });
 
-        const question = response.json();
+        if (!response.ok) {
+            throw new Error(`Запрос упал со статусом ${response.status}`);
+        }
+
+        const question = await response.json();
         toast.success("A new question has been successfully created!");
 
         return isClearForm ? {} : question;
     } catch (error) {
-        toast.error(error.message);
+        toast.error(error.message || "Something went wrong");
+        return {};
     }
 };
 
