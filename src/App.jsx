@@ -4,6 +4,7 @@ import { HomePage } from "./pages/HomePage";
 import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage";
 import { QuestionPage } from "./pages/QuestionPage/QuestionPage";
 import AQPLazy from "./pages/AddQuestionPage/AddQuestionPage.lazy";
+import { EditQuestionPage } from "./pages/EditQuestionPage";
 // "printWidth": 120
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
                     <Route path="/forbidden" element={<div>fgorbidden component</div>} />
                     <Route path="/addquestion" element={<AQPLazy />} />
                     <Route path="/question/:id" element={<QuestionPage />} />
+                    <Route path="/editquestion/:id" element={<EditQuestionPage />} />
 
                     <Route path="*" element={<NotFoundPage />} />
                 </Route>

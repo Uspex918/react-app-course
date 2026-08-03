@@ -2,9 +2,9 @@ import cls from "./QuestionForm.module.css";
 import { Button } from "../Button";
 
 export const QuestionForm = ({ formAction, state, isPending, submitBtnText }) => {
-    console.log("sr", state.resources);
     return (
         <form action={formAction} className={cls.form}>
+            <input type="text" name="questionId" defaultValue={state.id} hidden />
             <div className={cls.formControl}>
                 <label htmlFor="questionField">Question: </label>
                 <textarea
@@ -44,7 +44,7 @@ export const QuestionForm = ({ formAction, state, isPending, submitBtnText }) =>
             <div className={cls.formControl}>
                 <label htmlFor="resourcesField">Resources: </label>
                 <textarea
-                    defaultValue={state.resources}
+                    defaultValue={Array.isArray(state.resources) ? state.resources.join(", ") : state.resources}
                     name="resources"
                     id="resourcesField"
                     cols="30"
