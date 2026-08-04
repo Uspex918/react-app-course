@@ -38,6 +38,18 @@ body {
     background-color: var(--main-bg-color);
 }
 
+.darkLayout {
+    --main-bg-color: #23272f;
+    --text-color: #fff;
+
+    /* --btn-bg-color: #383b3f; */
+    --btn-bg-color: #16444f;
+    --btn-text-color: #fff;
+
+    --card-bg-color: #343a46;
+    --card-bg-color-hover: #404652;
+}
+
 @media (prefers-color-scheme: light) {
     :root {
         --main-bg-color: #fff;
@@ -47,7 +59,7 @@ body {
         --btn-text-color: #57c4dc;
 
         --card-bg-color: #ebedf0;
-        --card-bg-color-hover: #dfe6ef;
+        --card-bg-color-hover: #d8dadf;
     }
 }
 
