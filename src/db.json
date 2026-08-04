@@ -23,7 +23,7 @@
       ],
       "level": 2,
       "completed": false,
-      "editDate": "03.02.2025, 20:25"
+      "editDate": "04.08.2026, 16:49"
     },
     {
       "id": "3",
@@ -559,12 +559,132 @@
     {
       "id": "e5c9",
       "question": "Ты крут в React!!!",
-      "answer": "🍏 канэшна 🍏",
+      "answer": "🍏 конечно 🍏",
       "description": "Потому что React мне очень нравится и я уже много с ним практикуюсь",
       "resources": [],
       "level": 1,
       "completed": false,
-      "editDate": "03.08.2026, 18:52"
+      "editDate": "04.08.2026, 17:23"
+    },
+    {
+      "id": "51",
+      "question": "Что делает хук useLocation()?",
+      "answer": "Возвращает объект с информацией о текущем URL.",
+      "description": "Хук useLocation из react-router-dom позволяет получить объект location. Он содержит pathname, search, hash, state и key. Используется для определения текущего маршрута, чтения query-параметров и получения состояния, переданного через navigate().",
+      "resources": [
+        "https://reactrouter.com/api/hooks/useLocation"
+      ],
+      "level": 2,
+      "completed": false,
+      "editDate": "04.08.2026"
+    },
+    {
+      "id": "52",
+      "question": "Что возвращает useNavigate()?",
+      "answer": "Функцию navigate для программной навигации.",
+      "description": "Хук useNavigate возвращает функцию navigate(), которая позволяет перейти на другой маршрут, вернуться назад, заменить запись в истории браузера или передать объект state при навигации.",
+      "resources": [
+        "https://reactrouter.com/api/hooks/useNavigate"
+      ],
+      "level": 2,
+      "completed": false,
+      "editDate": "04.08.2026"
+    },
+    {
+      "id": "53",
+      "question": "Чем Link отличается от обычного тега <a>?",
+      "answer": "Link выполняет навигацию без перезагрузки страницы.",
+      "description": "Компонент Link изменяет маршрут внутри SPA через React Router. В отличие от HTML-тега <a>, он не выполняет полный запрос страницы к серверу, благодаря чему приложение работает быстрее.",
+      "resources": [
+        "https://reactrouter.com/api/components/Link"
+      ],
+      "level": 2,
+      "completed": false,
+      "editDate": "04.08.2026"
+    },
+    {
+      "id": "54",
+      "question": "Для чего нужен компонент Outlet?",
+      "answer": "Для отображения вложенных маршрутов.",
+      "description": "Outlet используется в родительском маршруте как место, куда React Router вставляет дочерний маршрут. Без Outlet вложенные страницы отображаться не будут.",
+      "resources": [
+        "https://reactrouter.com/api/components/Outlet"
+      ],
+      "level": 2,
+      "completed": false,
+      "editDate": "04.08.2026"
+    },
+    {
+      "id": "55",
+      "question": "Что делает компонент BrowserRouter?",
+      "answer": "Управляет маршрутизацией приложения через History API браузера.",
+      "description": "BrowserRouter отслеживает изменение URL и синхронизирует его с React-приложением. Обычно это самый верхний компонент маршрутизации.",
+      "resources": [
+        "https://reactrouter.com/api/declarative-routers/BrowserRouter"
+      ],
+      "level": 2,
+      "completed": false,
+      "editDate": "04.08.2026"
+    },
+    {
+      "id": "56",
+      "question": "Что хранится в location.pathname?",
+      "answer": "Путь текущего URL без параметров и hash.",
+      "description": "Если URL равен /products/15?sort=asc#reviews, то pathname будет содержать только /products/15.",
+      "resources": [
+        "https://reactrouter.com/api/hooks/useLocation"
+      ],
+      "level": 2,
+      "completed": false,
+      "editDate": "04.08.2026"
+    },
+    {
+      "id": "57",
+      "question": "Что содержит location.search?",
+      "answer": "Строку query-параметров.",
+      "description": "Поле search содержит часть URL после знака вопроса. Например, для /users?page=2&sort=name значение будет ?page=2&sort=name.",
+      "resources": [
+        "https://developer.mozilla.org/docs/Web/API/URLSearchParams"
+      ],
+      "level": 2,
+      "completed": false,
+      "editDate": "04.08.2026"
+    },
+    {
+      "id": "58",
+      "question": "Для чего используется useParams()?",
+      "answer": "Для получения параметров маршрута.",
+      "description": "Если маршрут описан как /users/:id, то useParams() вернет объект, содержащий id текущего пользователя.",
+      "resources": [
+        "https://reactrouter.com/api/hooks/useParams"
+      ],
+      "level": 2,
+      "completed": false,
+      "editDate": "04.08.2026"
+    },
+    {
+      "id": "59",
+      "question": "Что делает NavLink?",
+      "answer": "Это Link, который умеет определять активный маршрут.",
+      "description": "NavLink автоматически добавляет информацию об активном состоянии ссылки. Это удобно для меню навигации и подсветки текущего раздела.",
+      "resources": [
+        "https://reactrouter.com/api/components/NavLink"
+      ],
+      "level": 2,
+      "completed": false,
+      "editDate": "04.08.2026"
+    },
+    {
+      "id": "60",
+      "question": "Что означает проп element у Route?",
+      "answer": "Он определяет React-элемент, который будет отображен при совпадении маршрута.",
+      "description": "Проп element принимает JSX-элемент, например <HomePage />. Когда URL совпадает с маршрутом, React Router отображает именно этот элемент.",
+      "resources": [
+        "https://reactrouter.com/start/framework/routing"
+      ],
+      "level": 2,
+      "completed": false,
+      "editDate": "04.08.2026"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
