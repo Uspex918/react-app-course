@@ -74,11 +74,7 @@ export const EditQuestion = ({ initialState = {} }) => {
             <h1 className={cls.formTitle}>Edit question</h1>
 
             <div className={cls.formContainer}>
-                <button
-                    className={cls.removeBtn}
-                    disabled={isPending || isQuestionRemoving}
-                    onClick={onRemoveQuestionHandler}
-                >
+                <button className={cls.removeBtn} disabled={isPending || isQuestionRemoving} onClick={onRemoveQuestionHandler}>
                     X
                 </button>
                 <QuestionForm

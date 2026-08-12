@@ -10,14 +10,7 @@ export const SearchInput = ({ value, onChange }) => {
             <label htmlFor={inputId}>
                 <SearchIcon className={cls.searchIcon} />
             </label>
-            <input
-                type="text"
-                id={inputId}
-                className={cls.input}
-                placeholder="search.."
-                value={value}
-                onChange={onChange}
-            />
+            <input type="text" id={inputId} className={cls.input} placeholder="search.." value={value} onChange={onChange} />
         </div>
     );
 };
