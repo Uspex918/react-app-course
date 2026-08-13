@@ -1,13 +1,15 @@
 import cls from "./ThemeToggler.module.css";
 import { useTheme } from "../../hooks/useTheme";
 import { THEME_STORAGE } from "../../constants";
+import { THEME_ENUM } from "../../types/global.types";
+import type { ChangeEvent } from "react";
 
 export const ThemeToggler = () => {
     const { theme, setTheme } = useTheme();
 
-    const onChangeHandler = (e) => {
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
         const isChached = e.target.checked === true;
-        const updatedTheme = isChached ? "dark" : "light";
+        const updatedTheme = isChached ? THEME_ENUM.DARK : THEME_ENUM.LIGHT;
 
         setTheme(updatedTheme);
 
@@ -21,7 +23,7 @@ export const ThemeToggler = () => {
             <input
                 type="checkbox"
                 onChange={onChangeHandler}
-                checked={theme === "dark"}
+                checked={theme === THEME_ENUM.DARK}
                 className={cls["theme-switch__checkbox"]}
             />
             <div className={cls["theme-switch__container"]}>
