@@ -61,9 +61,7 @@ export const HomePage = () => {
     const cards = useMemo(() => {
         if (questions?.data) {
             if (searchValue.trim()) {
-                return questions.data.filter((d) =>
-                    d.question.toLowerCase().includes(searchValue.trim().toLowerCase()),
-                );
+                return questions.data.filter((d) => d.question.toLowerCase().includes(searchValue.trim().toLowerCase()));
             } else {
                 return questions.data;
             }

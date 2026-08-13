@@ -7,6 +7,8 @@ import { useFetch } from "../../hooks/useFetch";
 import { API_URL } from "../../constants/global.constants";
 import { Loader, SmallLoader } from "../../components/Loader";
 import { useAuth } from "../../hooks/useAuth";
+import type { IQuestionCard } from "../../types/global.types";
+import { BADGE_ENUM } from "../../types/global.enums";
 
 // const card = {
 //     id: "2",
@@ -25,37 +27,38 @@ export const QuestionPage = () => {
     const checkboxId = useId();
     const { id } = useParams();
     const { isAuth } = useAuth();
-    const [card, setCard] = useState(null);
+    const [card, setCard] = useState<IQuestionCard | null>(null);
     const [isChecked, setIsChecked] = useState(false);
 
     // console.log(id);
 
-    const levelVariant = () => (card.level === 1 ? "primay" : card.level === 2 ? "warning" : "alert");
-    const completedVariant = () => (card.completed ? "success" : "primay");
+    const levelVariant = (): BADGE_ENUM => {
+        if (!card) return BADGE_ENUM.PRIMARY;
+        return card.level === 1 ? BADGE_ENUM.PRIMARY : card.level === 2 ? BADGE_ENUM.WARNING : BADGE_ENUM.ALERT;
+    };
+    const completedVariant = (): BADGE_ENUM => (card?.completed ? BADGE_ENUM.SUCCESS : BADGE_ENUM.PRIMARY);
 
     const [fetchCard, isCardLoading] = useFetch(async () => {
         const response = await fetch(`${API_URL}/react/${id}`);
         const fetchedData = await response.json();
 
         setCard(fetchedData);
+        setIsChecked(fetchedData.completed);
     });
-    const [updateCard, isCardUpdated] = useFetch(async (isChecked) => {
+    const [updateCard, isCardUpdated] = useFetch(async (nextChecked) => {
         const response = await fetch(`${API_URL}/react/${id}`, {
             method: "PATCH",
-            body: JSON.stringify({ completed: isChecked }),
+            body: JSON.stringify({ completed: nextChecked }),
         });
         const fetchedData = await response.json();
 
         setCard(fetchedData);
+        setIsChecked(fetchedData.completed);
     });
 
     useEffect(() => {
         fetchCard();
     }, []);
-
-    useEffect(() => {
-        card !== null && setIsChecked(card.completed);
-    }, [card]);
 
     const onCheckboxChangeHandler = () => {
         setIsChecked(!isChecked);
