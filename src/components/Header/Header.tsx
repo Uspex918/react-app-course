@@ -12,8 +12,8 @@ export const Header = () => {
 
     console.log("isAuth", isAuth);
 
-    const loginHandler = () => {
-        localStorage.setItem(AUTH_STORAGE, !isAuth);
+    const loginHandler = (): void => {
+        localStorage.setItem(AUTH_STORAGE, `${!isAuth}`);
         setIsAuth(!isAuth);
     };
 

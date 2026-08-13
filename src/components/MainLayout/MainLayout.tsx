@@ -6,8 +6,8 @@ import { ToastContainer } from "react-toastify";
 import { Loader } from "../Loader";
 
 export const MainLayout = () => {
-    const currentYear = new Date().getFullYear();
-    const currentMonth = new Date().getMonth() + 1;
+    const currentYear: number = new Date().getFullYear();
+    const currentMonth: number = new Date().getMonth() + 1;
 
     return (
         <Fragment>
