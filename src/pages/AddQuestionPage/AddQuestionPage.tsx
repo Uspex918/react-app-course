@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { toast } from "react-toastify";
 // import { Button } from "../../components/Button";
 import { delayFn } from "../../helpers/delayFn";
@@ -6,16 +7,20 @@ import { useActionState } from "react";
 import { API_URL } from "../../constants/global.constants";
 import { Loader } from "../../components/Loader";
 import { QuestionForm } from "../../components/QuestionForm";
+import type { IQuestionCardState } from "../../types/global.types";
 
-const createCardAction = async (_previousState, formData) => {
+const createCardAction = async (
+    _previousState: Partial<IQuestionCardState>,
+    formData: FormData,
+): Promise<Partial<IQuestionCardState>> => {
     try {
         await delayFn();
         // console.log("formData", Object.fromEntries(formData));
         // console.log("question", formData.get("question"));
 
         const newQuestion = Object.fromEntries(formData);
-        const resources = newQuestion.resources.trim();
-        const isClearForm = newQuestion.clearForm; //formData.get("clearForm")
+        const resources = (newQuestion.resources as string).trim();
+        const isClearForm = Boolean(newQuestion.clearForm); //formData.get("clearForm")
 
         const response = await fetch(`${API_URL}/react`, {
             method: "POST",
@@ -34,18 +39,20 @@ const createCardAction = async (_previousState, formData) => {
             throw new Error(`Запрос упал со статусом ${response.status}`);
         }
 
-        const question = await response.json();
+        const question = (await response.json()) as Partial<IQuestionCardState>;
         toast.success("A new question has been successfully created!");
 
         return isClearForm ? {} : question;
-    } catch (error) {
-        toast.error(error.message || "Something went wrong");
+    } catch (error: any) {
+        toast.error(error?.message || "Something went wrong");
         return {};
     }
 };
 
 const AddQuestionPage = () => {
-    const [formState, formAction, isPending] = useActionState(createCardAction, { clearForm: true });
+    const [formState, formAction, isPending] = useActionState<Partial<IQuestionCardState>, FormData>(createCardAction, {
+        clearForm: true,
+    });
 
     console.log("formState", formState);
 
@@ -56,7 +63,12 @@ const AddQuestionPage = () => {
             <h1 className={cls.formTitle}>Add new question</h1>
 
             <div className={cls.formContainer}>
-                <QuestionForm formAction={formAction} state={formState} isPending={isPending} submitBtnText="Add Question" />
+                <QuestionForm
+                    formAction={formAction}
+                    cardState={formState}
+                    isPending={isPending}
+                    submitBtnText="Add Question"
+                />
             </div>
         </>
     );

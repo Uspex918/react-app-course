@@ -16,7 +16,6 @@ export const SearchInput: FC<ISearchInputProps> = ({ value, onChange }) => {
             <label htmlFor={inputId}>
                 <SearchIcon className={cls.searchIcon} />
             </label>
-            // eslint-disable-next-line prettier/prettier, prettier/prettier
             <input
                 type="text"
                 id={inputId}

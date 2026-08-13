@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import cls from "./EditQuestionPage.module.css";
 import { useActionState } from "react";
 import { Loader } from "../../components/Loader";
@@ -8,15 +9,17 @@ import { toast } from "react-toastify";
 import { dateFormat } from "../../helpers/dateFormat";
 import { useFetch } from "../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
+import type { FC } from "react";
+import type { IQuestionCard, IQuestionCardState } from "../../types/global.types";
 
-const editCardAction = async (_previousState, formData) => {
+const editCardAction = async (_previousState: Partial<IQuestionCardState>, formData: FormData) => {
     try {
         await delayFn();
         // console.log("formData", Object.fromEntries(formData));
         // console.log("question", formData.get("question"));
 
         const newQuestion = Object.fromEntries(formData);
-        const resources = newQuestion.resources.trim();
+        const resources = (newQuestion.resources as string).trim();
         const isClearForm = newQuestion.clearForm; //formData.get("clearForm")
         const questionId = newQuestion.questionId;
 
@@ -41,15 +44,18 @@ const editCardAction = async (_previousState, formData) => {
         toast.success("The question has been successfully edited!");
 
         return isClearForm ? {} : question;
-    } catch (error) {
-        toast.error(error.message || "Something went wrong");
+    } catch (error: any) {
+        toast.error(error?.message || "Something went wrong");
         return {};
     }
 };
+export interface IEditQuestionProps {
+    initialState: IQuestionCard;
+}
 
-export const EditQuestion = ({ initialState = {} }) => {
+export const EditQuestion: FC<IEditQuestionProps> = ({ initialState }) => {
     const navigate = useNavigate();
-    const [formState, formAction, isPending] = useActionState(editCardAction, {
+    const [formState, formAction, isPending] = useActionState<Partial<IQuestionCardState>, FormData>(editCardAction, {
         ...initialState,
         clearForm: false,
     });
@@ -74,12 +80,17 @@ export const EditQuestion = ({ initialState = {} }) => {
             <h1 className={cls.formTitle}>Edit question</h1>
 
             <div className={cls.formContainer}>
-                <button className={cls.removeBtn} disabled={isPending || isQuestionRemoving} onClick={onRemoveQuestionHandler}>
+                // eslint-disable-next-line prettier/prettier
+                <button
+                    className={cls.removeBtn}
+                    disabled={isPending || isQuestionRemoving}
+                    onClick={onRemoveQuestionHandler}
+                >
                     X
                 </button>
                 <QuestionForm
                     formAction={formAction}
-                    state={formState}
+                    cardState={formState}
                     isPending={isPending || isQuestionRemoving}
                     submitBtnText="Edit Question"
                 />

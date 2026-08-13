@@ -28,7 +28,7 @@ export const QuestionPage = () => {
     const { id } = useParams();
     const { isAuth } = useAuth();
     const [card, setCard] = useState<IQuestionCard | null>(null);
-    const [isChecked, setIsChecked] = useState(false);
+    const [isChecked, setIsChecked] = useState<boolean>(false);
 
     // console.log(id);
 
@@ -50,7 +50,7 @@ export const QuestionPage = () => {
             method: "PATCH",
             body: JSON.stringify({ completed: nextChecked }),
         });
-        const fetchedData = await response.json();
+        const fetchedData: IQuestionCard = await response.json();
 
         setCard(fetchedData);
         setIsChecked(fetchedData.completed);

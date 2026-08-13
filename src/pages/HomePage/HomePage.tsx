@@ -1,24 +1,27 @@
+/* eslint-disable prettier/prettier */
 import cls from "./HomePage.module.css";
-import { Fragment, useState, useEffect, useMemo, useRef } from "react";
+import { Fragment, useState, useEffect, useMemo, useRef, type ChangeEvent, type MouseEvent } from "react";
 import { API_URL } from "../../constants/global.constants";
 import { QuestionCardList } from "../../components/QuestionCardList";
 import { Loader } from "../../components/Loader";
 import { useFetch } from "../../hooks/useFetch";
 import { SearchInput } from "../../components/SearchInput";
 import { Button } from "../../components/Button";
+import type { IQuestionCardData } from "../../types/global.types";
 
 const DEFAULT_PER_PAGE = 10;
 
 export const HomePage = () => {
-    const [searchParams, setSearchParams] = useState(`?_page=1&_per_page=${DEFAULT_PER_PAGE}`);
-    const [questions, setQuestions] = useState({});
-    const [searchValue, setSearchValue] = useState("");
-    const [sortSelectValue, setSortSelectValue] = useState("");
-    const [countSelectValue, setCountSelectValue] = useState("");
+    const [searchParams, setSearchParams] = useState<string>(`?_page=1&_per_page=${DEFAULT_PER_PAGE}`);
+    const [questions, setQuestions] = useState<IQuestionCardData | null>(null);
+    const [searchValue, setSearchValue] = useState<string>("");
+    const [sortSelectValue, setSortSelectValue] = useState<string>("");
+    const [countSelectValue, setCountSelectValue] = useState<string>("");
 
-    const controlsContainerRef = useRef();
+    const controlsContainerRef = useRef<HTMLDivElement | null>(null);
 
-    const getActivePageNumber = () => (questions.next === null ? questions.last : questions.next - 1);
+    const getActivePageNumber = (questions: IQuestionCardData): number | null =>
+        questions.next === null ? questions.last : questions.next - 1;
 
     // const inputRef = useRef();
 
@@ -61,7 +64,9 @@ export const HomePage = () => {
     const cards = useMemo(() => {
         if (questions?.data) {
             if (searchValue.trim()) {
-                return questions.data.filter((d) => d.question.toLowerCase().includes(searchValue.trim().toLowerCase()));
+                return questions.data.filter((d) =>
+                    d.question.toLowerCase().includes(searchValue.trim().toLowerCase()),
+                );
             } else {
                 return questions.data;
             }
@@ -90,26 +95,27 @@ export const HomePage = () => {
     //     console.dir(inputRef.current.value);
     // };
 
-    const onSearchChangeHandler = (e) => {
+    const onSearchChangeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
         // console.log(e.target.value);
         setSearchValue(e.target.value);
     };
 
-    const onSortSelectChangeValue = (e) => {
+    const onSortSelectChangeValue = (e: ChangeEvent<HTMLSelectElement>): void => {
         console.log(e.target.value);
         setSortSelectValue(e.target.value);
         setSearchParams(`?_page=1&_per_page=${countSelectValue}&${e.target.value}`);
     };
 
-    const paginationHandler = (e) => {
-        console.log(e.target.tagName);
-        if (e.target.tagName === "BUTTON") {
-            setSearchParams(`?_page=${e.target.textContent}&_per_page=${countSelectValue}&${sortSelectValue}`);
-            controlsContainerRef.current.scrollIntoView({ behavior: "smooth" });
+    const paginationHandler = (e: MouseEvent<HTMLDivElement>): void => {
+        console.log((e.target as HTMLElement).tagName);
+        const thatElement = e.target as HTMLElement;
+        if (thatElement.tagName === "BUTTON") {
+            setSearchParams(`?_page=${thatElement.textContent}&_per_page=${countSelectValue}&${sortSelectValue}`);
+            controlsContainerRef.current?.scrollIntoView({ behavior: "smooth" });
         }
     };
 
-    const onCountSelectChangeValue = (e) => {
+    const onCountSelectChangeValue = (e: ChangeEvent<HTMLSelectElement>): void => {
         setCountSelectValue(e.target.value);
         setSearchParams(`?_page=1&_per_page=${e.target.value}&${sortSelectValue}`);
     };
@@ -151,7 +157,10 @@ export const HomePage = () => {
                     <div className={cls.paginationContainer} onClick={paginationHandler}>
                         {pagination.map((value) => {
                             return (
-                                <Button key={value} isActive={value === getActivePageNumber()}>
+                                <Button
+                                    key={value}
+                                    isActive={value === getActivePageNumber(questions as IQuestionCardData)}
+                                >
                                     {value}
                                 </Button>
                             );
