@@ -3,7 +3,7 @@ import { useActionState } from "react";
 import { Loader } from "../../components/Loader";
 import { QuestionForm } from "../../components/QuestionForm";
 import { delayFn } from "../../helpers/delayFn";
-import { API_URL } from "../../constants";
+import { API_URL } from "../../constants/global.constants";
 import { toast } from "react-toastify";
 import { dateFormat } from "../../helpers/dateFormat";
 import { useFetch } from "../../hooks/useFetch";
@@ -74,7 +74,11 @@ export const EditQuestion = ({ initialState = {} }) => {
             <h1 className={cls.formTitle}>Edit question</h1>
 
             <div className={cls.formContainer}>
-                <button className={cls.removeBtn} disabled={isPending || isQuestionRemoving} onClick={onRemoveQuestionHandler}>
+                <button
+                    className={cls.removeBtn}
+                    disabled={isPending || isQuestionRemoving}
+                    onClick={onRemoveQuestionHandler}
+                >
                     X
                 </button>
                 <QuestionForm

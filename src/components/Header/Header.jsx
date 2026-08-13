@@ -3,7 +3,7 @@ import { useAuth } from "../../hooks/useAuth";
 import cls from "./Header.module.css";
 import ReactLogo from "../../assets/react.svg";
 import { useNavigate } from "react-router-dom";
-import { AUTH_STORAGE } from "../../constants";
+import { AUTH_STORAGE } from "../../constants/global.constants";
 import { ThemeToggler } from "../../features/ThemeToggler";
 
 export const Header = () => {

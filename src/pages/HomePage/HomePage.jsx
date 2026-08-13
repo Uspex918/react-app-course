@@ -1,6 +1,6 @@
 import cls from "./HomePage.module.css";
 import { Fragment, useState, useEffect, useMemo, useRef } from "react";
-import { API_URL } from "../../constants";
+import { API_URL } from "../../constants/global.constants";
 import { QuestionCardList } from "../../components/QuestionCardList";
 import { Loader } from "../../components/Loader";
 import { useFetch } from "../../hooks/useFetch";
@@ -61,7 +61,9 @@ export const HomePage = () => {
     const cards = useMemo(() => {
         if (questions?.data) {
             if (searchValue.trim()) {
-                return questions.data.filter((d) => d.question.toLowerCase().includes(searchValue.trim().toLowerCase()));
+                return questions.data.filter((d) =>
+                    d.question.toLowerCase().includes(searchValue.trim().toLowerCase()),
+                );
             } else {
                 return questions.data;
             }

@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { delayFn } from "../../helpers/delayFn";
 import cls from "./AddQuestionPage.module.css";
 import { useActionState } from "react";
-import { API_URL } from "../../constants";
+import { API_URL } from "../../constants/global.constants";
 import { Loader } from "../../components/Loader";
 import { QuestionForm } from "../../components/QuestionForm";
 
@@ -56,7 +56,12 @@ const AddQuestionPage = () => {
             <h1 className={cls.formTitle}>Add new question</h1>
 
             <div className={cls.formContainer}>
-                <QuestionForm formAction={formAction} state={formState} isPending={isPending} submitBtnText="Add Question" />
+                <QuestionForm
+                    formAction={formAction}
+                    state={formState}
+                    isPending={isPending}
+                    submitBtnText="Add Question"
+                />
             </div>
         </>
     );
