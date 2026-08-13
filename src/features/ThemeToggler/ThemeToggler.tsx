@@ -1,8 +1,8 @@
 import cls from "./ThemeToggler.module.css";
 import { useTheme } from "../../hooks/useTheme";
 import { THEME_STORAGE } from "../../constants/global.constants";
-import { THEME_ENUM } from "../../types/global.types";
 import type { ChangeEvent } from "react";
+import { THEME_ENUM } from "../../types/global.enums";
 
 export const ThemeToggler = () => {
     const { theme, setTheme } = useTheme();
